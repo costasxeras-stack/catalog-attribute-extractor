@@ -1,3 +1,6 @@
+"""Builds the samples from WANDS product.csv (download it to scripts/product.csv from github.com/wayfair/WANDS).
+Writes data/input/{dev,test}.json (no labels) and data/labels/{dev,test}-labels.json.
+Labels are cleaned into a short list of values per attribute, the same lists Claude is given."""
 import pandas as pd, json, random, re
 df=pd.read_csv('scripts/product.csv',sep='\t')
 def feats(f):
@@ -55,9 +58,10 @@ withdesc=[x for x in rows if len(x['description'])>=80]
 lab=[x for x in withdesc if x['labels']]
 none=[x for x in withdesc if not x['labels']]
 random.seed(20261120); random.shuffle(lab); random.shuffle(none)
-dev, test, fill = lab[:20], lab[20:320], none[:30]
-for name,s in [('dev',dev),('test',test),('fill',fill)]:
-    json.dump(s,open(f'scripts/out/{name}.json','w'))
-    print(name,len(s),{k:sum(1 for x in s if k in x['labels']) for k in ['style','color','shape','material']})
+dev, test = lab[:20], lab[20:320]
+for name, smp in [('dev', dev), ('test', test)]:
+    json.dump([{k: p[k] for k in ['product_id', 'name', 'product_class', 'description']} for p in smp], open(f'data/input/{name}.json', 'w'), ensure_ascii=False)
+    json.dump({str(p['product_id']): p['labels'] for p in smp}, open(f'data/labels/{name}-labels.json', 'w'), indent=0)
+    print(name, len(smp), {k: sum(1 for x in smp if k in x['labels']) for k in ['style', 'color', 'shape', 'material']})
 import collections
 print({k:collections.Counter(x['labels'][k] for x in test if k in x['labels']).most_common() for k in ['style','color','shape','material']})

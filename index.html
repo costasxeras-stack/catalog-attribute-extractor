@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catalog Attribute Extractor</title>
+<meta name="description" content="Can AI fill missing shop filters from product text? Claude and a keyword matcher scored on 259 real products.">
+<meta name="theme-color" content="#f7f6f2">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23b45309'/%3E%3Cpath d='M9 10h14M9 16h9M9 22h12' stroke='white' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f2; --card:#fff; --ink:#1c1a16; --muted:#5f5a50; --faint:#8d877b; --line:#e7e3da;
+  --accent:#b45309; --accent-soft:#fdf1e3; --ai:#7c3aed; --ai-soft:#f1ebfd; --kw:#475569; --kw-soft:#eef1f5;
+  --ok:#15803d; --ok-soft:#e7f5ec; --bad:#b91c1c; --bad-soft:#fdecec; --mid:#a16207; --mid-soft:#fdf5e1;
+  --display:"Fraunces",Georgia,serif; --body:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+h1,h2,h3{font-family:var(--display);letter-spacing:-.015em;margin:0;text-wrap:balance}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header.top{border-bottom:1px solid var(--line);background:#fff}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;height:60px}
+.brand{white-space:nowrap;font-family:var(--display);font-weight:700;font-size:19px;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand i{width:24px;height:24px;border-radius:7px;background:var(--accent);display:inline-block}
+.top nav{display:flex;gap:18px;font-size:14.5px}
+.top nav a{color:var(--muted);text-decoration:none;white-space:nowrap}
+.intro{padding:40px 0 26px}
+.ver{font:500 12.5px var(--mono);color:var(--accent);background:var(--accent-soft);padding:3px 9px;border-radius:999px}
+.intro h1{font-size:clamp(30px,4.6vw,48px);line-height:1.08;margin-top:14px;max-width:21ch}
+.intro p{color:var(--muted);font-size:18px;max-width:68ch;margin:14px 0 0}
+section.block{margin-top:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.card h2{font-size:24px}
+.sub{color:var(--muted);font-size:15px;margin:6px 0 0;max-width:72ch}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
+.stat b{display:block;font:700 40px/1 var(--display);letter-spacing:-.02em}
+.stat span{display:block;color:var(--muted);font-size:14.5px;margin-top:8px}
+.stat small{display:block;color:var(--faint);font-size:13px;margin-top:6px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);margin-top:12px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
+.table-wrap{overflow-x:auto;margin-top:14px}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:16px}
+.th3{font:600 15px var(--body);letter-spacing:0;margin-bottom:4px}
+td .lab{display:block;font-size:12.5px;color:var(--faint)}
+th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.total td{font-weight:600;border-bottom:none}
+.bar{height:8px;border-radius:4px;background:#efece5;position:relative;min-width:70px}
+.bar i{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.ai{color:var(--ai)} .kw{color:var(--kw)}
+.gate-ctl{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0 4px}
+.seg button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font:600 14px var(--body);color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{border-color:var(--ink);color:var(--ink);background:#fff}
+.flow{display:flex;height:46px;border-radius:12px;overflow:hidden;margin-top:14px;border:1px solid var(--line)}
+.flow div{display:flex;align-items:center;justify-content:center;font:600 13.5px var(--body);color:#fff;white-space:nowrap;overflow:hidden;min-width:0;transition:flex-grow .3s}
+.f-auto{background:var(--ok)} .f-review{background:var(--mid)} .f-blank{background:#cfcabe;color:var(--ink)!important}
+.gate-out{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+.gate-out div{border:1px solid var(--line);border-radius:12px;padding:14px}
+.gate-out b{font:700 26px var(--display);display:block}
+.gate-out span{font-size:14px;color:var(--muted)}
+.filters{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin-top:14px}
+.field{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:600;color:var(--muted)}
+select,input[type=search]{padding:9px 11px;border:1px solid var(--line);border-radius:9px;font:15px var(--body);background:#fff;color:var(--ink);min-width:170px}
+.count{font-size:14px;color:var(--faint);margin-top:12px}
+.items{display:grid;gap:10px;margin-top:10px}
+.item{border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:6px 14px}
+.item h3{font:600 15.5px/1.35 var(--body);letter-spacing:0;text-transform:capitalize}
+.item .cls{font-size:13px;color:var(--faint)}
+.item .vals{display:flex;gap:8px;flex-wrap:wrap;grid-column:1/-1;font-size:14px;align-items:center}
+.pill{border-radius:999px;padding:3px 10px;font-weight:600;font-size:13px;white-space:nowrap}
+.p-label{background:var(--kw-soft);color:var(--ink)}
+.p-ok{background:var(--ok-soft);color:var(--ok)} .p-bad{background:var(--bad-soft);color:var(--bad)} .p-none{background:#f1efe9;color:var(--faint)}
+.ev{grid-column:1/-1;font-size:13.5px;color:var(--muted)}
+.ev q{font-style:italic}
+.attr{font:500 12px var(--mono);color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:6px;align-self:start;white-space:nowrap}
+.more{margin-top:12px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 16px;font:600 14.5px var(--body);cursor:pointer}
+.note{font-size:13.5px;color:var(--faint);margin-top:12px}
+footer{margin:44px 0 0;border-top:1px solid var(--line);background:#fff}
+footer .wrap{padding:22px 20px 34px;font-size:13.5px;color:var(--muted);display:grid;gap:6px}
+@media (max-width:760px){.stats,.gate-out,.two{grid-template-columns:1fr}.stat b{font-size:34px}.card{padding:18px}.intro p{font-size:16.5px}.top nav a.hide-sm{display:none}}
+@media (max-width:640px){.sc .bar{display:none}.two>div{min-width:0}}
+@media (max-width:420px){.brand{font-size:16px}.top nav{gap:12px;font-size:13.5px}select,input[type=search]{min-width:0;width:100%}.filters .field{flex:1 1 140px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><i aria-hidden="true"></i>Attribute Extractor</a>
+    <nav>
+      <a href="https://github.com/costasxeras-stack/catalog-attribute-extractor/blob/main/docs/case-study.md">Case study</a>
+      <a class="hide-sm" href="https://github.com/costasxeras-stack/catalog-attribute-extractor">GitHub</a>
+      <a href="https://kostasxeras.com/">Portfolio</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro">
+    <span class="ver">v0.1.0</span>
+    <h1>Can AI fill the shop filters your catalogue is missing?</h1>
+    <p>Most products in a large furniture catalogue have no style, color, shape or material value, so they never show up when a shopper uses those filters. An n8n workflow asked Claude to read each product's text and fill the gaps, with a quote as evidence. Here is how often it was right, compared with a simple keyword matcher, on <span id="n-products">259</span> real products whose values were hidden and then checked.</p>
+  </section>
+
+  <section class="block stats" id="stats" aria-label="Headline results"></section>
+
+  <section class="block card">
+    <h2>Scorecard by attribute</h2>
+    <p class="sub">"Right when filled" is how often a filled value matches the catalogue's own value. "Gaps filled" is how many of the hidden values the method filled at all. Both methods read the same text: product name, category and the first 1,200 characters of the description.</p>
+    <div class="two">
+      <div><h3 class="th3">Right when filled</h3><table class="sc"><thead><tr><th>Attribute</th><th class="n ai">Claude</th><th class="n kw">Keywords</th></tr></thead><tbody id="score-p"></tbody></table></div>
+      <div><h3 class="th3">Gaps filled</h3><table class="sc"><thead><tr><th>Attribute</th><th class="n ai">Claude</th><th class="n kw">Keywords</th></tr></thead><tbody id="score-c"></tbody></table></div>
+    </div>
+  </section>
+
+  <section class="block card">
+    <h2>Which values should go live without a person?</h2>
+    <p class="sub">Choose a rule. The bar shows what happens to the <span id="n-labelled">379</span> hidden values: filled automatically, sent to a person, or left blank.</p>
+    <div class="gate-ctl seg" role="group" aria-label="Auto-fill rule">
+      <button data-gate="claude" aria-pressed="false">Auto-fill every Claude answer</button>
+      <button data-gate="agree" aria-pressed="true">Auto-fill only when Claude and keywords agree</button>
+    </div>
+    <div class="flow" id="flow" aria-hidden="true"></div>
+    <div class="legend"><span><i class="dot" style="background:var(--ok)"></i>Filled automatically</span><span><i class="dot" style="background:var(--mid)"></i>Sent to a person</span><span><i class="dot" style="background:#cfcabe"></i>Left blank</span></div>
+    <div class="gate-out" id="gate-out" aria-live="polite"></div>
+  </section>
+
+  <section class="block card">
+    <h2>Check the answers yourself</h2>
+    <p class="sub">Every scored value, with Claude's evidence quote. The catalogue's value is the reference, but it is not always right either.</p>
+    <div class="filters">
+      <label class="field">Attribute<select id="f-attr"><option value="">All</option><option>style</option><option>color</option><option>shape</option><option>material</option></select></label>
+      <label class="field">Claude's answer<select id="f-out">
+        <option value="">All</option><option value="ok">Matches the catalogue</option><option value="bad">Differs from the catalogue</option><option value="none">Left blank</option><option value="disagree">Claude and keywords disagree</option>
+      </select></label>
+      <label class="field">Search<input id="f-q" type="search" placeholder="Product name"></label>
+    </div>
+    <p class="count" id="count"></p>
+    <div class="items" id="items"></div>
+    <button class="more" id="more">Show more</button>
+  </section>
+
+  <p class="note" id="limits"></p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Built by <a href="https://kostasxeras.com/">Konstantinos Xeras</a> with Claude (Anthropic) as engineering partner. <a href="https://github.com/costasxeras-stack/catalog-attribute-extractor">Workflow, data and scoring on GitHub</a>.</span>
+    <span>Data: WANDS product dataset by Wayfair, MIT licence. Answers: Claude Haiku in an n8n Cloud workflow, run on 20 November 2026.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var pct = function (x, d) { return x == null ? '–' : (x * 100).toFixed(d == null ? 0 : d) + '%'; };
+  var ATTRS = ['style', 'color', 'shape', 'material'];
+  var D, shown = 0, list = [];
+
+  fetch('data/results/scorecard.json').then(function (r) { return r.json(); }).then(function (d) { D = d; init(); })
+    .catch(function () { $('stats').innerHTML = '<div class="stat">The results could not load. Refresh the page.</div>'; });
+
+  function init() {
+    var C = D.claude, B = D.baseline, G = D.gate.all;
+    $('n-products').textContent = D.products;
+    $('n-labelled').textContent = G.labelled;
+    $('stats').innerHTML =
+      stat(pct(C.all.precision), 'of Claude\'s filled values match the catalogue', 'Keyword matcher: ' + pct(B.all.precision)) +
+      stat(pct(G.agree.precision), 'right when Claude and keywords agree', 'That covers ' + pct(G.agree.n / G.labelled) + ' of the hidden values') +
+      stat(pct(C.color.precision), 'right for color, the weakest attribute', 'Shape: ' + pct(C.shape.precision) + ', material: ' + pct(C.material.precision));
+    var rowsFor = function (key, tot) {
+      return ATTRS.concat(['all']).map(function (a) {
+        var c = C[a], b = B[a];
+        return '<tr' + (a === 'all' ? ' class="total"' : '') + '><td>' + (a === 'all' ? 'All four' : a) + '<span class="lab">' + c.labelled + ' hidden values</span></td>' +
+          cell(c[key], 'var(--ai)', key === 'precision' ? c.correct + ' of ' + c.answered + ' right' : c.answered + ' of ' + c.labelled + ' filled') +
+          cell(b[key], 'var(--kw)', key === 'precision' ? b.correct + ' of ' + b.answered + ' right' : b.answered + ' of ' + b.labelled + ' filled') + '</tr>';
+      }).join('');
+    };
+    $('score-p').innerHTML = rowsFor('precision');
+    $('score-c').innerHTML = rowsFor('coverage');
+    $('limits').textContent = 'Not scored: ' + D.not_scored.length + ' of the ' + D.sample + ' sampled products, because their batch came back from Claude empty or cut off (see the case study). Sample: random products with a description and at least one catalogue value for these attributes.';
+    document.querySelectorAll('[data-gate]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        document.querySelectorAll('[data-gate]').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+        gate(b.dataset.gate);
+      });
+    });
+    gate('agree');
+    ['f-attr', 'f-out'].forEach(function (id) { $(id).addEventListener('change', filter); });
+    $('f-q').addEventListener('input', filter);
+    $('more').addEventListener('click', function () { render(30); });
+    filter();
+  }
+  function stat(big, text, small) { return '<div class="stat"><b>' + big + '</b><span>' + text + '</span><small>' + small + '</small></div>'; }
+  function cell(x, color, title) {
+    return '<td class="n" title="' + title + '"><div style="display:flex;align-items:center;gap:8px;justify-content:flex-end"><span>' + pct(x) + '<span class="lab">' + title + '</span></span><div class="bar" style="width:56px"><i style="width:' + (x || 0) * 100 + '%;background:' + color + '"></i></div></div></td>';
+  }
+
+  function gate(mode) {
+    var G = D.gate.all, L = G.labelled, auto, autoOk, review, reviewOk;
+    if (mode === 'claude') {
+      auto = G.agree.n + G.disagree.n + G.claude_only.n; autoOk = G.agree.correct + G.disagree.correct + G.claude_only.correct; review = 0; reviewOk = 0;
+    } else {
+      auto = G.agree.n; autoOk = G.agree.correct; review = G.disagree.n + G.claude_only.n; reviewOk = G.disagree.correct + G.claude_only.correct;
+    }
+    var blank = L - auto - review;
+    $('flow').innerHTML = seg('f-auto', auto, L) + seg('f-review', review, L) + seg('f-blank', blank, L);
+    $('gate-out').innerHTML =
+      '<div><b>' + auto + '</b><span>filled automatically, ' + pct(auto ? autoOk / auto : null) + ' of them right. ' + (auto - autoOk) + ' wrong values would go live.</span></div>' +
+      '<div><b>' + review + '</b><span>' + (review ? 'sent to a person. Claude\'s answer is right ' + pct(reviewOk / review) + ' of the time here, so a person is needed.' : 'sent to a person.') + '</span></div>' +
+      '<div><b>' + blank + '</b><span>left blank, because Claude found no value in the text.</span></div>';
+  }
+  function seg(cls, n, L) { return '<div class="' + cls + '" style="flex-grow:' + n + '">' + (n / L > 0.09 ? n : '') + '</div>'; }
+
+  function filter() {
+    var a = $('f-attr').value, o = $('f-out').value, q = $('f-q').value.trim().toLowerCase();
+    list = D.rows.filter(function (r) {
+      if (a && r.attr !== a) return false;
+      if (q && r.name.indexOf(q) < 0) return false;
+      var got = r.status === 'proposed' ? r.claude : null;
+      if (o === 'ok' && got !== r.label) return false;
+      if (o === 'bad' && (!got || got === r.label)) return false;
+      if (o === 'none' && got) return false;
+      if (o === 'disagree' && (!got || !r.base || got === r.base)) return false;
+      return true;
+    });
+    shown = 0; $('items').innerHTML = ''; render(30);
+  }
+  function render(k) {
+    var html = list.slice(shown, shown + k).map(function (r) {
+      var got = r.status === 'proposed' ? r.claude : null;
+      var cpill = got ? '<span class="pill ' + (got === r.label ? 'p-ok' : 'p-bad') + '">Claude: ' + esc(got) + '</span>' : '<span class="pill p-none">Claude: blank</span>';
+      var bpill = r.base ? '<span class="pill ' + (r.base === r.label ? 'p-ok' : 'p-bad') + '">Keywords: ' + esc(r.base) + '</span>' : '<span class="pill p-none">Keywords: blank</span>';
+      var ev = got && r.evidence ? '<div class="ev">Claude\'s evidence: <q>' + esc(r.evidence) + '</q></div>' : (r.status === 'rejected_invalid_value' ? '<div class="ev">Claude gave a value outside the allowed list. The check rejected it.</div>' : '');
+      return '<div class="item"><div><h3>' + esc(r.name) + '</h3><div class="cls">' + esc(r.cls) + '</div></div><span class="attr">' + r.attr + '</span>' +
+        '<div class="vals"><span class="pill p-label">Catalogue: ' + esc(r.label) + '</span>' + cpill + bpill + '</div>' + ev + '</div>';
+    }).join('');
+    $('items').insertAdjacentHTML('beforeend', html);
+    shown = Math.min(list.length, shown + k);
+    $('count').textContent = list.length + ' values' + (list.length ? ', showing ' + shown : '');
+    $('more').style.display = shown < list.length ? '' : 'none';
+  }
+})();
+</script>
+</body>
+</html>
