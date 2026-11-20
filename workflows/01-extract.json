@@ -1,0 +1,320 @@
+{
+  "name": "Catalog Attribute Extractor · 01 Extract",
+  "nodes": [
+    {
+      "name": "Products in",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cae-extract",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "name": "Split into batches of 10",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Body: { run_id, products: [...] }  or  { run_id, source_url, offset, limit }\n// Each product: { product_id, name, product_class, description }\nconst body = $input.first().json.body || {};\nlet products = Array.isArray(body.products) ? body.products : [];\nif (!products.length && body.source_url) {\n  const all = await this.helpers.httpRequest({ url: String(body.source_url), json: true });\n  const offset = Number(body.offset) || 0;\n  const limit = Number(body.limit) || 50;\n  products = (Array.isArray(all) ? all : []).slice(offset, offset + limit);\n}\nconst runId = String(body.run_id || ('run_' + $now.toFormat('yyyyLLdd_HHmmss')));\nconst SIZE = 10;  // products per Claude call\nconst out = [];\nfor (let i = 0; i < products.length; i += SIZE) {\n  const batch = products.slice(i, i + SIZE).map(p => ({\n    product_id: Number(p.product_id),\n    name: String(p.name || ''),\n    product_class: String(p.product_class || ''),\n    // Long descriptions are cut to keep each call small\n    description: String(p.description || '').slice(0, 1200),\n  }));\n  const text = batch.map(p => `### Product ${p.product_id}\\nName: ${p.name}\\nCategory: ${p.product_class}\\nDescription: ${p.description}`).join('\\n\\n');\n  out.push({ json: { run_id: runId, batch, text } });\n}\nreturn out;"
+      }
+    },
+    {
+      "name": "Claude: read attributes",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        520,
+        0
+      ],
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.text }}",
+        "messages": {
+          "messageValues": [
+            {
+              "type": "SystemMessagePromptTemplate",
+              "message": "You fill in missing product attributes for an online furniture and home goods shop. You get up to 10 products. For each product, read the name, category and description, and give four attributes.\n\nAllowed values:\n- style: modern, traditional, glam, farmhouse, industrial, coastal, boho, lodge\n- color: white, black, gray, brown, blue, beige, green, red, pink, yellow, orange, purple, silver, gold, clear, multicolor\n- shape: rectangular, square, round, oval, l-shaped, u-shaped, hexagonal, octagonal\n- material: metal, wood, plastic, glass, ceramic, fabric, natural fiber, stone\n\nRules:\n- Use only what the text says. If the text does not support a value, write not_stated. A blank is better than a guess, because a wrong value puts the product under the wrong shop filter.\n- color is the main visible color. Use multicolor when two or more colors are equally prominent. Wood finishes such as walnut, espresso or cherry count as brown.\n- material is the main material of the body or frame, not of small parts such as legs, handles or hardware. Manufactured wood, MDF and bamboo count as wood. Resin, acrylic and melamine count as plastic. Polyester, cotton and other textiles count as fabric. Jute, rattan, wicker and coir count as natural fiber. Marble and concrete count as stone.\n- style may be read from clear descriptive words (for example clean lines for modern, shiplap for farmhouse, tufted velvet with mirrored accents for glam).\n- evidence: copy 2 to 10 words exactly as they appear in the product text that support the value. Leave it empty for not_stated.\n\nOutput format. Write exactly one line per product and nothing else, with 9 fields separated by a pipe character:\nproduct number|style|style evidence|color|color evidence|shape|shape evidence|material|material evidence\nExample line:\n123|modern|sleek modern look|not_stated||rectangular|rectangular top|wood|solid acacia wood"
+            }
+          ]
+        },
+        "batching": {
+          "batchSize": 1,
+          "delayBetweenBatches": 1000
+        }
+      },
+      "onError": "continueRegularOutput",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 5000
+    },
+    {
+      "name": "Claude",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.6,
+      "position": [
+        520,
+        260
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "id",
+          "value": "claude-haiku-5-5"
+        },
+        "options": {
+          "temperature": 0,
+          "maxTokensToSample": 3000
+        }
+      }
+    },
+    {
+      "name": "Check answers",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        800,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Turns Claude's lines into one row per product and attribute.\n// Each line: product|style|evidence|color|evidence|shape|evidence|material|evidence\n// A value is only proposed if it is an allowed value AND its evidence is found in the product text.\nconst ALLOWED = {\"style\": [\"modern\", \"traditional\", \"glam\", \"farmhouse\", \"industrial\", \"coastal\", \"boho\", \"lodge\"], \"color\": [\"white\", \"black\", \"gray\", \"brown\", \"blue\", \"beige\", \"green\", \"red\", \"pink\", \"yellow\", \"orange\", \"purple\", \"silver\", \"gold\", \"clear\", \"multicolor\"], \"shape\": [\"rectangular\", \"square\", \"round\", \"oval\", \"l-shaped\", \"u-shaped\", \"hexagonal\", \"octagonal\"], \"material\": [\"metal\", \"wood\", \"plastic\", \"glass\", \"ceramic\", \"fabric\", \"natural fiber\", \"stone\"]};\nconst ATTRS = Object.keys(ALLOWED);\nconst flat = s => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '');\nconst batches = $('Split into batches of 10').all();\nconst rows = [];\n$input.all().forEach((item, i) => {\n  const b = batches[i].json;\n  const failed = !!item.json.error || typeof item.json.text !== 'string';\n  const byId = {};\n  if (!failed) {\n    item.json.text.split('\\n').forEach(line => {\n      const f = line.split('|').map(s => s.trim());\n      if (f.length < 9 || !/^\\d+$/.test(f[0])) return;\n      const a = {};\n      ATTRS.forEach((attr, k) => { a[attr] = { value: f[1 + 2 * k], evidence: f[2 + 2 * k] }; });\n      byId[Number(f[0])] = a;\n    });\n  }\n  b.batch.forEach(p => {\n    const hay = flat(p.name + ' ' + p.product_class + ' ' + p.description);\n    ATTRS.forEach(attr => {\n      const a = byId[p.product_id] && byId[p.product_id][attr];\n      const value = a ? String(a.value || '').toLowerCase().trim() : '';\n      const evidence = a ? String(a.evidence || '').trim().slice(0, 200) : '';\n      let status;\n      if (failed) status = 'ai_failed';\n      else if (!a) status = 'missing_in_answer';\n      else if (!value || value === 'not_stated') status = 'not_stated';\n      else if (!ALLOWED[attr].includes(value)) status = 'rejected_invalid_value';\n      else if (flat(evidence).length < 3 || !hay.includes(flat(evidence))) status = 'rejected_no_evidence';\n      else status = 'proposed';\n      rows.push({ json: { run_id: b.run_id, product_id: p.product_id, product_name: p.name.slice(0, 200), attribute: attr,\n        value: ['proposed', 'rejected_no_evidence', 'rejected_invalid_value'].includes(status) ? value : '', evidence, status } });\n    });\n  });\n});\nreturn rows;"
+      }
+    },
+    {
+      "name": "Save for review",
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1.1,
+      "position": [
+        1060,
+        0
+      ],
+      "parameters": {
+        "resource": "row",
+        "operation": "insert",
+        "dataTableId": {
+          "__rl": true,
+          "mode": "name",
+          "value": "cae_proposals"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "run_id": "={{ $json.run_id }}",
+            "product_id": "={{ $json.product_id }}",
+            "product_name": "={{ $json.product_name }}",
+            "attribute": "={{ $json.attribute }}",
+            "value": "={{ $json.value }}",
+            "evidence": "={{ $json.evidence }}",
+            "status": "={{ $json.status }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "run_id",
+              "displayName": "run_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "product_id",
+              "displayName": "product_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "product_name",
+              "displayName": "product_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "attribute",
+              "displayName": "attribute",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "value",
+              "displayName": "value",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "evidence",
+              "displayName": "evidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            }
+          ]
+        },
+        "options": {}
+      }
+    },
+    {
+      "name": "Summarise run",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1300,
+        0
+      ],
+      "parameters": {
+        "jsCode": "// Compact reply: counts by status, plus every answer that has a value.\n// Rows with no value (not_stated, ai_failed) are counted but not listed. All rows are in the cae_proposals table.\nconst rows = $('Check answers').all().map(i => i.json);\nconst count = {};\nrows.forEach(r => { count[r.status] = (count[r.status] || 0) + 1; });\nconst failed = [...new Set(rows.filter(r => r.status === 'ai_failed').map(r => r.product_id))];\nconst results = rows.filter(r => r.value).map(r => [r.product_id, r.attribute, r.value, r.status === 'proposed' ? 'p' : r.status, r.evidence]);\nreturn [{ json: { run_id: rows[0] ? rows[0].run_id : null, products: new Set(rows.map(r => r.product_id)).size, by_status: count, failed_products: failed, results } }];"
+      },
+      "executeOnce": true
+    },
+    {
+      "name": "Reply with results",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        1540,
+        0
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      }
+    },
+    {
+      "name": "About this workflow",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -40,
+        -420
+      ],
+      "parameters": {
+        "content": "## Catalog Attribute Extractor · 01 Extract\nFills missing shop filters (style, color, shape, material) from product text.\n\n**Claude proposes, the workflow checks, a person approves.** A value is only proposed if it is an allowed value and its evidence quote is found in the product text. Every answer is saved to the `cae_proposals` data table with a status. Nothing is written to the catalogue.\n\nSend: POST `{ run_id, products: [...] }` or `{ run_id, source_url, offset, limit }`. Ten products go to Claude in one call, one call at a time.",
+        "width": 560,
+        "height": 320
+      }
+    }
+  ],
+  "connections": {
+    "Products in": {
+      "main": [
+        [
+          {
+            "node": "Split into batches of 10",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split into batches of 10": {
+      "main": [
+        [
+          {
+            "node": "Claude: read attributes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude: read attributes",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude: read attributes": {
+      "main": [
+        [
+          {
+            "node": "Check answers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check answers": {
+      "main": [
+        [
+          {
+            "node": "Save for review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save for review": {
+      "main": [
+        [
+          {
+            "node": "Summarise run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Summarise run": {
+      "main": [
+        [
+          {
+            "node": "Reply with results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

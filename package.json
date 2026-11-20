@@ -1,0 +1,14 @@
+{
+  "name": "catalog-attribute-extractor",
+  "version": "0.1.0",
+  "description": "Can AI fill missing shop filters from product text? Claude in n8n against a keyword matcher, scored on real WANDS products.",
+  "private": true,
+  "scripts": {
+    "samples": "python3 scripts/prepare-samples.py",
+    "baseline": "python3 scripts/baseline.py data/input/test.json > data/results/baseline-test.json",
+    "check": "node scripts/check-answers.js data/input/test.json data/results/raw/test-a-000-100.txt data/results/raw/test-b-100-200.txt data/results/raw/test-c-200-300.txt data/results/raw/test-rerun.txt > data/results/claude-test.json",
+    "score": "python3 scripts/score.py",
+    "serve": "python3 -m http.server 8000"
+  },
+  "license": "MIT"
+}
