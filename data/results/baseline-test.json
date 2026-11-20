@@ -1,0 +1,2624 @@
+{
+"17640": {
+"style": {
+"value": "modern",
+"evidence": "mid-century"
+},
+"material": {
+"value": "fabric",
+"evidence": "polyester"
+}
+},
+"20462": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"material": {
+"value": "ceramic",
+"evidence": "porcelain"
+}
+},
+"373": {
+"style": {
+"value": "modern",
+"evidence": "mid-century"
+},
+"color": {
+"value": "beige",
+"evidence": "tan"
+},
+"shape": {
+"value": "square",
+"evidence": "square"
+},
+"material": {
+"value": "wood",
+"evidence": "walnut"
+}
+},
+"40593": {
+"material": {
+"value": "plastic",
+"evidence": "resin"
+}
+},
+"5170": {
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"40186": {
+"material": {
+"value": "fabric",
+"evidence": "linen"
+}
+},
+"8476": {
+"style": {
+"value": "modern",
+"evidence": "sleek"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"8524": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"material": {
+"value": "metal",
+"evidence": "iron"
+}
+},
+"10960": {
+"style": {
+"value": "coastal",
+"evidence": "beach"
+},
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "fabric",
+"evidence": "cotton"
+}
+},
+"27661": {
+"style": {
+"value": "modern",
+"evidence": "sleek"
+},
+"material": {
+"value": "fabric",
+"evidence": "linen"
+}
+},
+"9838": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+},
+"color": {
+"value": "white",
+"evidence": "white"
+},
+"material": {
+"value": "plastic",
+"evidence": "resin"
+}
+},
+"16314": {
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "metal",
+"evidence": "steel"
+}
+},
+"32345": {},
+"39416": {
+"color": {
+"value": "white",
+"evidence": "white"
+},
+"material": {
+"value": "plastic",
+"evidence": "pvc"
+}
+},
+"9776": {
+"material": {
+"value": "wood",
+"evidence": "bamboo"
+}
+},
+"8194": {
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"20036": {
+"material": {
+"value": "fabric",
+"evidence": "fabric"
+}
+},
+"16334": {},
+"42943": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+}
+},
+"35593": {
+"color": {
+"value": "gray",
+"evidence": "gray"
+},
+"material": {
+"value": "metal",
+"evidence": "aluminum"
+}
+},
+"18280": {
+"color": {
+"value": "clear",
+"evidence": "clear"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"9658": {
+"material": {
+"value": "wood",
+"evidence": "mdf"
+}
+},
+"41013": {
+"color": {
+"value": "blue",
+"evidence": "blue"
+},
+"material": {
+"value": "fabric",
+"evidence": "linen"
+}
+},
+"33130": {
+"style": {
+"value": "industrial",
+"evidence": "industrial"
+},
+"material": {
+"value": "fabric",
+"evidence": "fabric"
+}
+},
+"26111": {
+"style": {
+"value": "lodge",
+"evidence": "rustic"
+},
+"color": {
+"value": "black",
+"evidence": "black"
+},
+"material": {
+"value": "glass",
+"evidence": "glass"
+}
+},
+"6956": {
+"style": {
+"value": "industrial",
+"evidence": "industrial"
+},
+"color": {
+"value": "black",
+"evidence": "black"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"18876": {},
+"20613": {
+"shape": {
+"value": "round",
+"evidence": "round"
+},
+"material": {
+"value": "plastic",
+"evidence": "resin"
+}
+},
+"11736": {
+"style": {
+"value": "coastal",
+"evidence": "nautical"
+},
+"material": {
+"value": "ceramic",
+"evidence": "ceramic"
+}
+},
+"9890": {
+"color": {
+"value": "gray",
+"evidence": "gray"
+},
+"material": {
+"value": "fabric",
+"evidence": "fabric"
+}
+},
+"8299": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+},
+"color": {
+"value": "black",
+"evidence": "black"
+}
+},
+"14858": {
+"style": {
+"value": "glam",
+"evidence": "glam"
+},
+"shape": {
+"value": "round",
+"evidence": "round"
+},
+"material": {
+"value": "fabric",
+"evidence": "velvet"
+}
+},
+"3794": {
+"material": {
+"value": "metal",
+"evidence": "brass"
+}
+},
+"6295": {
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"24939": {
+"style": {
+"value": "traditional",
+"evidence": "traditional"
+},
+"shape": {
+"value": "square",
+"evidence": "square"
+},
+"material": {
+"value": "plastic",
+"evidence": "melamine"
+}
+},
+"41935": {
+"material": {
+"value": "metal",
+"evidence": "steel"
+}
+},
+"23392": {
+"shape": {
+"value": "round",
+"evidence": "round"
+}
+},
+"36226": {
+"style": {
+"value": "industrial",
+"evidence": "industrial"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"12476": {
+"material": {
+"value": "wood",
+"evidence": "wooden"
+}
+},
+"35786": {
+"style": {
+"value": "modern",
+"evidence": "mid-century"
+},
+"color": {
+"value": "brown",
+"evidence": "brown"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"23096": {
+"style": {
+"value": "lodge",
+"evidence": "cabin"
+},
+"color": {
+"value": "multicolor",
+"evidence": "colorful"
+},
+"material": {
+"value": "ceramic",
+"evidence": "porcelain"
+}
+},
+"34882": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"shape": {
+"value": "square",
+"evidence": "square"
+}
+},
+"10401": {
+"style": {
+"value": "modern",
+"evidence": "sleek"
+},
+"color": {
+"value": "white",
+"evidence": "white"
+}
+},
+"13686": {
+"style": {
+"value": "industrial",
+"evidence": "industrial"
+},
+"shape": {
+"value": "round",
+"evidence": "circular"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"36030": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "brown",
+"evidence": "brown"
+}
+},
+"26702": {
+"style": {
+"value": "glam",
+"evidence": "glamorous"
+},
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "ceramic",
+"evidence": "porcelain"
+}
+},
+"13826": {
+"style": {
+"value": "glam",
+"evidence": "glam"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"6431": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "clear",
+"evidence": "clear"
+}
+},
+"18881": {
+"color": {
+"value": "brown",
+"evidence": "walnut"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"36100": {
+"style": {
+"value": "traditional",
+"evidence": "vintage-inspired"
+},
+"color": {
+"value": "gray",
+"evidence": "gray"
+},
+"shape": {
+"value": "square",
+"evidence": "square"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"16": {
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"27084": {
+"color": {
+"value": "white",
+"evidence": "white"
+},
+"material": {
+"value": "ceramic",
+"evidence": "porcelain"
+}
+},
+"42739": {
+"color": {
+"value": "white",
+"evidence": "white"
+},
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"21341": {
+"color": {
+"value": "brown",
+"evidence": "brown"
+}
+},
+"34440": {},
+"40485": {
+"style": {
+"value": "glam",
+"evidence": "glamorous"
+},
+"color": {
+"value": "gold",
+"evidence": "gold"
+},
+"material": {
+"value": "metal",
+"evidence": "iron"
+}
+},
+"28449": {},
+"23156": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"13580": {},
+"8749": {
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+}
+},
+"13390": {
+"shape": {
+"value": "square",
+"evidence": "square"
+},
+"material": {
+"value": "fabric",
+"evidence": "polyester"
+}
+},
+"15567": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+}
+},
+"15791": {
+"color": {
+"value": "red",
+"evidence": "red"
+}
+},
+"8125": {
+"style": {
+"value": "lodge",
+"evidence": "rustic"
+},
+"material": {
+"value": "plastic",
+"evidence": "polypropylene"
+}
+},
+"19469": {
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"19967": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "gold",
+"evidence": "gold"
+},
+"material": {
+"value": "fabric",
+"evidence": "velvet"
+}
+},
+"32852": {},
+"11083": {},
+"33355": {},
+"29583": {},
+"6254": {
+"style": {
+"value": "farmhouse",
+"evidence": "country"
+}
+},
+"21420": {
+"style": {
+"value": "boho",
+"evidence": "bohemian"
+},
+"material": {
+"value": "fabric",
+"evidence": "cotton"
+}
+},
+"42482": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "orange",
+"evidence": "rust"
+},
+"material": {
+"value": "metal",
+"evidence": "steel"
+}
+},
+"16864": {
+"style": {
+"value": "lodge",
+"evidence": "rustic"
+},
+"material": {
+"value": "wood",
+"evidence": "pine"
+}
+},
+"30007": {
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"39529": {
+"style": {
+"value": "glam",
+"evidence": "glamorous"
+},
+"shape": {
+"value": "round",
+"evidence": "round"
+},
+"material": {
+"value": "fabric",
+"evidence": "velvet"
+}
+},
+"7885": {
+"material": {
+"value": "metal",
+"evidence": "steel"
+}
+},
+"24125": {
+"style": {
+"value": "glam",
+"evidence": "glam"
+}
+},
+"38109": {
+"style": {
+"value": "traditional",
+"evidence": "traditional"
+},
+"color": {
+"value": "beige",
+"evidence": "ivory"
+}
+},
+"34935": {
+"style": {
+"value": "coastal",
+"evidence": "nautical"
+},
+"color": {
+"value": "white",
+"evidence": "white"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"31750": {},
+"22343": {
+"style": {
+"value": "industrial",
+"evidence": "industrial"
+},
+"color": {
+"value": "clear",
+"evidence": "transparent"
+},
+"material": {
+"value": "metal",
+"evidence": "steel"
+}
+},
+"17949": {
+"material": {
+"value": "plastic",
+"evidence": "resin"
+}
+},
+"8384": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"37944": {
+"style": {
+"value": "modern",
+"evidence": "mid-century"
+},
+"color": {
+"value": "multicolor",
+"evidence": "colorful"
+},
+"material": {
+"value": "wood",
+"evidence": "wooden"
+}
+},
+"15706": {
+"color": {
+"value": "gold",
+"evidence": "gold"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"26500": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "black",
+"evidence": "black"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"12870": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "gray",
+"evidence": "charcoal"
+},
+"material": {
+"value": "ceramic",
+"evidence": "porcelain"
+}
+},
+"9317": {
+"style": {
+"value": "traditional",
+"evidence": "traditional"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"444": {
+"style": {
+"value": "industrial",
+"evidence": "industrial"
+},
+"shape": {
+"value": "l-shaped",
+"evidence": "l-shape"
+}
+},
+"3626": {
+"material": {
+"value": "natural fiber",
+"evidence": "rattan"
+}
+},
+"39705": {
+"material": {
+"value": "fabric",
+"evidence": "polyester"
+}
+},
+"26852": {
+"style": {
+"value": "coastal",
+"evidence": "beach"
+}
+},
+"23037": {
+"material": {
+"value": "ceramic",
+"evidence": "stoneware"
+}
+},
+"5179": {
+"color": {
+"value": "white",
+"evidence": "white"
+},
+"shape": {
+"value": "round",
+"evidence": "round"
+},
+"material": {
+"value": "fabric",
+"evidence": "linen"
+}
+},
+"23822": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+},
+"color": {
+"value": "black",
+"evidence": "black"
+},
+"material": {
+"value": "plastic",
+"evidence": "polypropylene"
+}
+},
+"943": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "brown",
+"evidence": "brown"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"25490": {
+"style": {
+"value": "modern",
+"evidence": "mid-century"
+},
+"material": {
+"value": "stone",
+"evidence": "marble"
+}
+},
+"42491": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+}
+},
+"23181": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"22292": {
+"style": {
+"value": "farmhouse",
+"evidence": "farmhouse"
+},
+"color": {
+"value": "orange",
+"evidence": "rust"
+},
+"material": {
+"value": "metal",
+"evidence": "steel"
+}
+},
+"4597": {
+"style": {
+"value": "traditional",
+"evidence": "timeless"
+}
+},
+"27969": {
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"12165": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+},
+"color": {
+"value": "green",
+"evidence": "green"
+},
+"material": {
+"value": "wood",
+"evidence": "pine"
+}
+},
+"14101": {
+"shape": {
+"value": "square",
+"evidence": "square"
+}
+},
+"28228": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+},
+"color": {
+"value": "brown",
+"evidence": "espresso"
+}
+},
+"34911": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "white",
+"evidence": "white"
+},
+"shape": {
+"value": "square",
+"evidence": "square"
+},
+"material": {
+"value": "wood",
+"evidence": "oak"
+}
+},
+"21666": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+},
+"color": {
+"value": "silver",
+"evidence": "chrome"
+}
+},
+"22591": {
+"style": {
+"value": "farmhouse",
+"evidence": "farmhouse"
+},
+"color": {
+"value": "clear",
+"evidence": "clear"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"3918": {
+"style": {
+"value": "traditional",
+"evidence": "traditional"
+},
+"material": {
+"value": "metal",
+"evidence": "aluminum"
+}
+},
+"33411": {
+"style": {
+"value": "lodge",
+"evidence": "rustic"
+},
+"color": {
+"value": "black",
+"evidence": "black"
+},
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"23810": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "brown",
+"evidence": "brown"
+},
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"28086": {
+"material": {
+"value": "wood",
+"evidence": "wooden"
+}
+},
+"5584": {
+"style": {
+"value": "lodge",
+"evidence": "rustic"
+},
+"material": {
+"value": "stone",
+"evidence": "stone"
+}
+},
+"3956": {
+"style": {
+"value": "coastal",
+"evidence": "coastal"
+},
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "fabric",
+"evidence": "cotton"
+}
+},
+"10748": {},
+"19797": {},
+"38285": {
+"color": {
+"value": "beige",
+"evidence": "ivory"
+},
+"material": {
+"value": "fabric",
+"evidence": "cotton"
+}
+},
+"5212": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+}
+},
+"12703": {
+"color": {
+"value": "white",
+"evidence": "white"
+},
+"material": {
+"value": "metal",
+"evidence": "aluminum"
+}
+},
+"20303": {
+"shape": {
+"value": "oval",
+"evidence": "oval"
+}
+},
+"26351": {},
+"29930": {
+"material": {
+"value": "fabric",
+"evidence": "polyester"
+}
+},
+"26158": {
+"color": {
+"value": "black",
+"evidence": "black"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"5086": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+},
+"shape": {
+"value": "square",
+"evidence": "square"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"14837": {
+"style": {
+"value": "coastal",
+"evidence": "coastal"
+},
+"material": {
+"value": "metal",
+"evidence": "aluminum"
+}
+},
+"16682": {
+"style": {
+"value": "modern",
+"evidence": "mid-century"
+},
+"material": {
+"value": "fabric",
+"evidence": "polyester"
+}
+},
+"25012": {
+"material": {
+"value": "wood",
+"evidence": "mdf"
+}
+},
+"32738": {
+"material": {
+"value": "plastic",
+"evidence": "polypropylene"
+}
+},
+"29071": {
+"material": {
+"value": "metal",
+"evidence": "iron"
+}
+},
+"34091": {
+"style": {
+"value": "modern",
+"evidence": "sleek"
+}
+},
+"25603": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"851": {
+"color": {
+"value": "blue",
+"evidence": "teal"
+},
+"material": {
+"value": "plastic",
+"evidence": "polypropylene"
+}
+},
+"39000": {
+"color": {
+"value": "gray",
+"evidence": "gray"
+}
+},
+"23709": {
+"color": {
+"value": "gray",
+"evidence": "charcoal"
+},
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"1964": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+},
+"material": {
+"value": "fabric",
+"evidence": "polyester"
+}
+},
+"7940": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+},
+"shape": {
+"value": "round",
+"evidence": "round"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"13052": {
+"material": {
+"value": "plastic",
+"evidence": "resin"
+}
+},
+"14251": {
+"color": {
+"value": "orange",
+"evidence": "rust"
+},
+"material": {
+"value": "fabric",
+"evidence": "linen"
+}
+},
+"32512": {
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"13184": {
+"color": {
+"value": "clear",
+"evidence": "clear"
+}
+},
+"18984": {
+"color": {
+"value": "silver",
+"evidence": "silver"
+},
+"material": {
+"value": "fabric",
+"evidence": "velvet"
+}
+},
+"20865": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+},
+"material": {
+"value": "fabric",
+"evidence": "polyester"
+}
+},
+"1302": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+}
+},
+"5493": {},
+"2173": {},
+"34262": {},
+"29336": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+}
+},
+"23243": {
+"style": {
+"value": "traditional",
+"evidence": "timeless"
+}
+},
+"39201": {
+"style": {
+"value": "modern",
+"evidence": "sleek"
+},
+"color": {
+"value": "orange",
+"evidence": "rust"
+},
+"material": {
+"value": "metal",
+"evidence": "zinc"
+}
+},
+"5452": {},
+"2590": {
+"style": {
+"value": "traditional",
+"evidence": "traditional"
+},
+"color": {
+"value": "beige",
+"evidence": "beige"
+}
+},
+"6237": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"material": {
+"value": "fabric",
+"evidence": "fabric"
+}
+},
+"276": {
+"color": {
+"value": "purple",
+"evidence": "plum"
+},
+"material": {
+"value": "fabric",
+"evidence": "wool"
+}
+},
+"30808": {},
+"6154": {},
+"41251": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+},
+"material": {
+"value": "fabric",
+"evidence": "fabric"
+}
+},
+"15403": {},
+"21541": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+},
+"color": {
+"value": "blue",
+"evidence": "blue"
+},
+"material": {
+"value": "glass",
+"evidence": "glass"
+}
+},
+"22387": {
+"material": {
+"value": "ceramic",
+"evidence": "ceramic"
+}
+},
+"39224": {
+"color": {
+"value": "orange",
+"evidence": "rust"
+},
+"material": {
+"value": "fabric",
+"evidence": "fabric"
+}
+},
+"13125": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"35443": {
+"style": {
+"value": "coastal",
+"evidence": "coastal"
+},
+"color": {
+"value": "black",
+"evidence": "black"
+},
+"material": {
+"value": "wood",
+"evidence": "pine"
+}
+},
+"7735": {
+"style": {
+"value": "lodge",
+"evidence": "rustic"
+},
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"29368": {
+"style": {
+"value": "modern",
+"evidence": "mid-century"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"25122": {
+"style": {
+"value": "modern",
+"evidence": "sleek"
+},
+"color": {
+"value": "clear",
+"evidence": "clear"
+}
+},
+"26402": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"material": {
+"value": "plastic",
+"evidence": "vinyl"
+}
+},
+"9802": {
+"color": {
+"value": "red",
+"evidence": "red"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"10347": {},
+"2153": {
+"material": {
+"value": "plastic",
+"evidence": "melamine"
+}
+},
+"29890": {},
+"3327": {
+"style": {
+"value": "modern",
+"evidence": "minimalist"
+},
+"color": {
+"value": "clear",
+"evidence": "clear"
+}
+},
+"34951": {
+"style": {
+"value": "modern",
+"evidence": "mid-century"
+},
+"color": {
+"value": "clear",
+"evidence": "clear"
+},
+"material": {
+"value": "glass",
+"evidence": "glass"
+}
+},
+"14984": {
+"style": {
+"value": "modern",
+"evidence": "sleek"
+}
+},
+"42957": {
+"material": {
+"value": "metal",
+"evidence": "iron"
+}
+},
+"17379": {
+"style": {
+"value": "farmhouse",
+"evidence": "country"
+}
+},
+"7280": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"material": {
+"value": "metal",
+"evidence": "steel"
+}
+},
+"16486": {
+"material": {
+"value": "glass",
+"evidence": "glass"
+}
+},
+"26585": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+}
+},
+"3372": {
+"material": {
+"value": "plastic",
+"evidence": "melamine"
+}
+},
+"35479": {
+"style": {
+"value": "coastal",
+"evidence": "coastal"
+},
+"color": {
+"value": "white",
+"evidence": "white"
+},
+"shape": {
+"value": "oval",
+"evidence": "oval"
+},
+"material": {
+"value": "natural fiber",
+"evidence": "wicker"
+}
+},
+"20706": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"material": {
+"value": "metal",
+"evidence": "steel"
+}
+},
+"1441": {
+"style": {
+"value": "modern",
+"evidence": "mid-century"
+},
+"material": {
+"value": "fabric",
+"evidence": "fabric"
+}
+},
+"40026": {
+"color": {
+"value": "white",
+"evidence": "white"
+},
+"material": {
+"value": "metal",
+"evidence": "iron"
+}
+},
+"31418": {
+"style": {
+"value": "coastal",
+"evidence": "coastal"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"6761": {
+"material": {
+"value": "wood",
+"evidence": "mdf"
+}
+},
+"23933": {
+"style": {
+"value": "modern",
+"evidence": "mid-century"
+},
+"color": {
+"value": "white",
+"evidence": "white"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"6375": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "white",
+"evidence": "white"
+},
+"material": {
+"value": "wood",
+"evidence": "oak"
+}
+},
+"13988": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+}
+},
+"2964": {
+"material": {
+"value": "plastic",
+"evidence": "resin"
+}
+},
+"1810": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+},
+"color": {
+"value": "brown",
+"evidence": "brown"
+},
+"material": {
+"value": "fabric",
+"evidence": "polyester"
+}
+},
+"33730": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+}
+},
+"14982": {
+"material": {
+"value": "fabric",
+"evidence": "polyester"
+}
+},
+"6226": {
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"42338": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+},
+"color": {
+"value": "black",
+"evidence": "black"
+},
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "metal",
+"evidence": "iron"
+}
+},
+"39063": {
+"material": {
+"value": "fabric",
+"evidence": "fabric"
+}
+},
+"17399": {
+"material": {
+"value": "metal",
+"evidence": "steel"
+}
+},
+"28019": {
+"color": {
+"value": "red",
+"evidence": "red"
+},
+"material": {
+"value": "plastic",
+"evidence": "acrylic"
+}
+},
+"36654": {
+"color": {
+"value": "gold",
+"evidence": "gold"
+},
+"shape": {
+"value": "round",
+"evidence": "round"
+},
+"material": {
+"value": "plastic",
+"evidence": "resin"
+}
+},
+"4989": {},
+"10332": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+}
+},
+"28052": {
+"color": {
+"value": "white",
+"evidence": "white"
+}
+},
+"26946": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+},
+"color": {
+"value": "black",
+"evidence": "black"
+},
+"shape": {
+"value": "round",
+"evidence": "circular"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"22257": {},
+"26336": {},
+"22568": {
+"style": {
+"value": "glam",
+"evidence": "glam"
+},
+"color": {
+"value": "gold",
+"evidence": "gold"
+},
+"material": {
+"value": "metal",
+"evidence": "iron"
+}
+},
+"14098": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+}
+},
+"17952": {},
+"5914": {
+"style": {
+"value": "glam",
+"evidence": "glamorous"
+},
+"shape": {
+"value": "round",
+"evidence": "circular"
+},
+"material": {
+"value": "metal",
+"evidence": "steel"
+}
+},
+"37073": {},
+"14461": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+},
+"color": {
+"value": "brown",
+"evidence": "brown"
+},
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "plastic",
+"evidence": "polypropylene"
+}
+},
+"5936": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+},
+"color": {
+"value": "blue",
+"evidence": "blue"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"40075": {
+"style": {
+"value": "traditional",
+"evidence": "traditional"
+},
+"color": {
+"value": "black",
+"evidence": "black"
+},
+"shape": {
+"value": "round",
+"evidence": "round"
+},
+"material": {
+"value": "plastic",
+"evidence": "plastic"
+}
+},
+"25683": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "gold",
+"evidence": "gold"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"42604": {
+"color": {
+"value": "blue",
+"evidence": "blue"
+}
+},
+"30689": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"31064": {
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"41043": {
+"color": {
+"value": "white",
+"evidence": "white"
+}
+},
+"31710": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+},
+"color": {
+"value": "silver",
+"evidence": "chrome"
+}
+},
+"15637": {
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+}
+},
+"14178": {},
+"4329": {
+"color": {
+"value": "black",
+"evidence": "black"
+},
+"material": {
+"value": "metal",
+"evidence": "steel"
+}
+},
+"28988": {
+"style": {
+"value": "industrial",
+"evidence": "industrial"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"10355": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "white",
+"evidence": "white"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"40031": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "gold",
+"evidence": "gold"
+},
+"shape": {
+"value": "square",
+"evidence": "square"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"17028": {
+"style": {
+"value": "lodge",
+"evidence": "rustic"
+},
+"color": {
+"value": "black",
+"evidence": "black"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"17937": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+},
+"material": {
+"value": "glass",
+"evidence": "glass"
+}
+},
+"77": {
+"shape": {
+"value": "l-shaped",
+"evidence": "l-shape"
+}
+},
+"13995": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "silver",
+"evidence": "nickel"
+},
+"material": {
+"value": "glass",
+"evidence": "glass"
+}
+},
+"21316": {
+"color": {
+"value": "clear",
+"evidence": "clear"
+},
+"material": {
+"value": "glass",
+"evidence": "glass"
+}
+},
+"30618": {
+"style": {
+"value": "traditional",
+"evidence": "timeless"
+},
+"color": {
+"value": "orange",
+"evidence": "rust"
+},
+"material": {
+"value": "plastic",
+"evidence": "resin"
+}
+},
+"808": {
+"material": {
+"value": "plastic",
+"evidence": "resin"
+}
+},
+"33584": {
+"color": {
+"value": "orange",
+"evidence": "rust"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"3521": {},
+"19793": {
+"style": {
+"value": "modern",
+"evidence": "mid-century"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"12497": {
+"style": {
+"value": "traditional",
+"evidence": "timeless"
+},
+"material": {
+"value": "metal",
+"evidence": "brass"
+}
+},
+"28027": {
+"color": {
+"value": "clear",
+"evidence": "clear"
+}
+},
+"39233": {
+"style": {
+"value": "modern",
+"evidence": "sleek"
+},
+"material": {
+"value": "metal",
+"evidence": "steel"
+}
+},
+"16787": {},
+"734": {
+"material": {
+"value": "wood",
+"evidence": "pine"
+}
+},
+"40400": {
+"style": {
+"value": "glam",
+"evidence": "glam"
+},
+"color": {
+"value": "silver",
+"evidence": "chrome"
+},
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"42389": {
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"33396": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+},
+"color": {
+"value": "silver",
+"evidence": "chrome"
+},
+"material": {
+"value": "plastic",
+"evidence": "acrylic"
+}
+},
+"29990": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "gold",
+"evidence": "gold"
+},
+"material": {
+"value": "fabric",
+"evidence": "polyester"
+}
+},
+"25474": {
+"material": {
+"value": "natural fiber",
+"evidence": "coir"
+}
+},
+"17599": {
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"10585": {
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"41861": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+},
+"color": {
+"value": "gray",
+"evidence": "gray"
+}
+},
+"35844": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+}
+},
+"32457": {
+"style": {
+"value": "lodge",
+"evidence": "rustic"
+}
+},
+"34446": {},
+"34808": {
+"color": {
+"value": "yellow",
+"evidence": "yellow"
+}
+},
+"27233": {
+"color": {
+"value": "gray",
+"evidence": "gray"
+}
+},
+"11291": {
+"style": {
+"value": "glam",
+"evidence": "glam"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"15352": {
+"color": {
+"value": "brown",
+"evidence": "walnut"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"20376": {},
+"41773": {
+"style": {
+"value": "lodge",
+"evidence": "rustic"
+},
+"color": {
+"value": "black",
+"evidence": "black"
+},
+"material": {
+"value": "wood",
+"evidence": "oak"
+}
+},
+"40591": {
+"style": {
+"value": "traditional",
+"evidence": "traditional"
+},
+"shape": {
+"value": "square",
+"evidence": "square"
+},
+"material": {
+"value": "fabric",
+"evidence": "polyester"
+}
+},
+"19453": {
+"color": {
+"value": "brown",
+"evidence": "brown"
+},
+"material": {
+"value": "fabric",
+"evidence": "velvet"
+}
+},
+"14569": {
+"style": {
+"value": "lodge",
+"evidence": "rustic"
+},
+"shape": {
+"value": "round",
+"evidence": "round"
+},
+"material": {
+"value": "metal",
+"evidence": "brass"
+}
+},
+"9779": {},
+"21535": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"color": {
+"value": "silver",
+"evidence": "silver"
+},
+"material": {
+"value": "wood",
+"evidence": "wooden"
+}
+},
+"37163": {},
+"35463": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+}
+},
+"8708": {
+"shape": {
+"value": "round",
+"evidence": "circular"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"33434": {
+"style": {
+"value": "farmhouse",
+"evidence": "country"
+},
+"color": {
+"value": "orange",
+"evidence": "rust"
+},
+"material": {
+"value": "metal",
+"evidence": "zinc"
+}
+},
+"36780": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"material": {
+"value": "plastic",
+"evidence": "melamine"
+}
+},
+"927": {
+"color": {
+"value": "beige",
+"evidence": "khaki"
+},
+"shape": {
+"value": "square",
+"evidence": "square"
+},
+"material": {
+"value": "fabric",
+"evidence": "cotton"
+}
+},
+"10093": {
+"style": {
+"value": "traditional",
+"evidence": "traditional"
+},
+"material": {
+"value": "ceramic",
+"evidence": "ceramic"
+}
+},
+"5310": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+}
+},
+"38281": {
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"23915": {
+"style": {
+"value": "modern",
+"evidence": "contemporary"
+},
+"color": {
+"value": "silver",
+"evidence": "silver"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"27208": {
+"style": {
+"value": "traditional",
+"evidence": "traditional"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"7897": {
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"28263": {},
+"3068": {},
+"28688": {
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"32027": {
+"style": {
+"value": "farmhouse",
+"evidence": "country"
+}
+},
+"33934": {
+"style": {
+"value": "coastal",
+"evidence": "nautical"
+},
+"material": {
+"value": "plastic",
+"evidence": "melamine"
+}
+},
+"1735": {
+"color": {
+"value": "black",
+"evidence": "black"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"34729": {
+"style": {
+"value": "coastal",
+"evidence": "nautical"
+}
+},
+"19090": {
+"style": {
+"value": "glam",
+"evidence": "glam"
+},
+"shape": {
+"value": "square",
+"evidence": "square"
+},
+"material": {
+"value": "fabric",
+"evidence": "polyester"
+}
+},
+"21536": {
+"style": {
+"value": "lodge",
+"evidence": "rustic"
+},
+"color": {
+"value": "silver",
+"evidence": "silver"
+}
+},
+"6264": {
+"color": {
+"value": "white",
+"evidence": "white"
+},
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"40390": {},
+"10779": {
+"material": {
+"value": "fabric",
+"evidence": "cotton"
+}
+},
+"1211": {
+"color": {
+"value": "beige",
+"evidence": "cream"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"41858": {
+"style": {
+"value": "boho",
+"evidence": "bohemian"
+},
+"color": {
+"value": "white",
+"evidence": "white"
+}
+},
+"1146": {
+"material": {
+"value": "metal",
+"evidence": "steel"
+}
+},
+"9953": {
+"style": {
+"value": "coastal",
+"evidence": "beach"
+},
+"color": {
+"value": "green",
+"evidence": "green"
+},
+"material": {
+"value": "fabric",
+"evidence": "cotton"
+}
+},
+"1238": {
+"material": {
+"value": "glass",
+"evidence": "crystal"
+}
+},
+"23735": {
+"style": {
+"value": "traditional",
+"evidence": "classic"
+},
+"material": {
+"value": "fabric",
+"evidence": "microfiber"
+}
+},
+"38682": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+},
+"shape": {
+"value": "rectangular",
+"evidence": "rectangular"
+},
+"material": {
+"value": "metal",
+"evidence": "metal"
+}
+},
+"38180": {
+"material": {
+"value": "fabric",
+"evidence": "fabric"
+}
+},
+"2080": {
+"shape": {
+"value": "square",
+"evidence": "square"
+},
+"material": {
+"value": "fabric",
+"evidence": "velvet"
+}
+},
+"31465": {
+"color": {
+"value": "clear",
+"evidence": "clear"
+},
+"shape": {
+"value": "round",
+"evidence": "round"
+},
+"material": {
+"value": "wood",
+"evidence": "wooden"
+}
+},
+"37958": {
+"color": {
+"value": "red",
+"evidence": "red"
+},
+"material": {
+"value": "wood",
+"evidence": "wood"
+}
+},
+"38559": {
+"style": {
+"value": "modern",
+"evidence": "modern"
+}
+},
+"12539": {
+"style": {
+"value": "traditional",
+"evidence": "traditional"
+}
+},
+"40452": {
+"style": {
+"value": "glam",
+"evidence": "glam"
+},
+"material": {
+"value": "fabric",
+"evidence": "polyester"
+}
+}
+}
