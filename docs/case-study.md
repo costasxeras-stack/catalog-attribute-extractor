@@ -95,4 +95,4 @@ All 376 values Claude proposed came with a quote that was really in the text. On
 
 ## My role
 
-I framed the problem, chose the attributes, the baseline, the sample and the auto-fill rule, and wrote the findings. Claude (Anthropic) built the workflow and the scripts with me and ran the tests.
+I framed the problem, chose the attributes, the baseline, the sample and the auto-fill rule, and wrote the findings.

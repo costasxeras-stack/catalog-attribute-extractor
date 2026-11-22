@@ -46,9 +46,9 @@ Full detail in the [case study](docs/case-study.md). Scored on 259 products and 
 
 [WANDS](https://github.com/wayfair/WANDS) product data by Wayfair, MIT licence. The catalogue's own values are cleaned into short value lists (for example "rectangle" and "rectangular" both become rectangular). The same lists are given to Claude.
 
-## How it was built
+## My role
 
-I framed the problem, chose the attributes, the baseline and the review rule, and wrote the findings. Claude (Anthropic) was my engineering partner for the workflow and the code. Decisions are recorded in [docs/decisions](docs/decisions).
+I framed the problem, chose the attributes, the baseline and the review rule, and wrote the findings. Decisions are recorded in [docs/decisions](docs/decisions).
 
 ## Run it yourself
 
