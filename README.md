@@ -2,7 +2,7 @@
 
 **Can AI fill the shop filters a catalogue is missing? An n8n workflow asks Claude to read product text and fill style, color, shape and material, with a quote as evidence. Scored against a keyword matcher on 259 real products whose values were hidden.**
 
-**Current version:** 0.1.0
+**Current version:** 0.2.0
 
 Live results: https://kostasxeras.com/catalog-attribute-extractor/
 

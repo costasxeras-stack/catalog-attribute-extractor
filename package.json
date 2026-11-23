@@ -1,6 +1,6 @@
 {
   "name": "catalog-attribute-extractor",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Can AI fill missing shop filters from product text? Claude in n8n against a keyword matcher, scored on real WANDS products.",
   "private": true,
   "scripts": {

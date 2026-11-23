@@ -5,97 +5,138 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Catalog Attribute Extractor</title>
 <meta name="description" content="Can AI fill missing shop filters from product text? Claude and a keyword matcher scored on 259 real products.">
-<meta name="theme-color" content="#f7f6f2">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23b45309'/%3E%3Cpath d='M9 10h14M9 16h9M9 22h12' stroke='white' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#17212b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2317212b'/%3E%3Cpath d='M9 10h14M9 16h9M9 22h12' stroke='%23e0592a' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f7f6f2; --card:#fff; --ink:#1c1a16; --muted:#5f5a50; --faint:#8d877b; --line:#e7e3da;
-  --accent:#b45309; --accent-soft:#fdf1e3; --ai:#7c3aed; --ai-soft:#f1ebfd; --kw:#475569; --kw-soft:#eef1f5;
-  --ok:#15803d; --ok-soft:#e7f5ec; --bad:#b91c1c; --bad-soft:#fdecec; --mid:#a16207; --mid-soft:#fdf5e1;
-  --display:"Fraunces",Georgia,serif; --body:"Inter",system-ui,sans-serif; --mono:"JetBrains Mono",ui-monospace,monospace;
+  --bg:#f6f7f9; --card:#fff; --ink:#17212b; --muted:#536170; --faint:#8692a0; --line:#dfe4ea;
+  --accent:#e0592a; --accent-soft:#fde9e1; --ai:#6e3fd1; --ai-soft:#efe9fc; --kw:#50627a; --kw-soft:#e9edf2;
+  --ok:#1f8a4c; --ok-soft:#e2f3e8; --bad:#c33b32; --bad-soft:#fbe6e4; --mid:#b7791f; --mid-soft:#fbf0dc;
+  --font:"Manrope",system-ui,sans-serif;
 }
 *{box-sizing:border-box}
 html,body{overflow-x:clip}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--body);-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.55 var(--font);-webkit-font-smoothing:antialiased}
 a{color:var(--accent)}
-h1,h2,h3{font-family:var(--display);letter-spacing:-.015em;margin:0;text-wrap:balance}
+h1,h2,h3{margin:0;text-wrap:balance;letter-spacing:-.015em}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-header.top{border-bottom:1px solid var(--line);background:#fff}
-header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;height:60px}
-.brand{white-space:nowrap;font-family:var(--display);font-weight:700;font-size:19px;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px}
-.brand i{width:24px;height:24px;border-radius:7px;background:var(--accent);display:inline-block}
-.top nav{display:flex;gap:18px;font-size:14.5px}
-.top nav a{color:var(--muted);text-decoration:none;white-space:nowrap}
-.intro{padding:40px 0 26px}
-.ver{font:500 12.5px var(--mono);color:var(--accent);background:var(--accent-soft);padding:3px 9px;border-radius:999px}
-.intro h1{font-size:clamp(30px,4.6vw,48px);line-height:1.08;margin-top:14px;max-width:21ch}
-.intro p{color:var(--muted);font-size:18px;max-width:68ch;margin:14px 0 0}
-section.block{margin-top:22px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
-.card h2{font-size:24px}
+header.top{background:var(--ink)}
+header.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;height:58px}
+.brand{white-space:nowrap;font-weight:800;font-size:18px;color:#fff;text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand i{width:22px;height:16px;background:var(--accent);display:inline-block;clip-path:polygon(28% 0,100% 0,100% 100%,28% 100%,0 50%);position:relative}
+.top nav{display:flex;gap:18px;font-size:15px}
+.top nav a{color:#b9c4d0;text-decoration:none;white-space:nowrap}
+.top nav a:hover{color:#fff}
+.intro{padding:32px 0 20px;max-width:800px}
+.intro h1{font-size:clamp(29px,4.2vw,44px);line-height:1.08;font-weight:800}
+.intro p{color:var(--muted);font-size:17px;margin:12px 0 0}
+/* product sheet */
+.sheet{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 1px 0 var(--line)}
+.prod{padding:24px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.prod .crumb{font-size:13.5px;color:var(--faint)}
+.prod h2{font-size:23px;font-weight:800;line-height:1.2;text-transform:capitalize}
+.found{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.found div{border-radius:8px;padding:12px 14px;background:var(--bg)}
+.found div:last-child{background:var(--ok-soft)}
+.found b{display:block;font:800 26px/1.1 var(--font)}
+.found div:last-child b{color:var(--ok)}
+.found span{font-size:13px;color:var(--muted)}
+.prod .img{aspect-ratio:4/3;border-radius:8px;background:repeating-linear-gradient(135deg,#eef1f5 0 12px,#f6f8fa 12px 24px);display:grid;place-items:center;color:var(--faint);font-size:13.5px;text-align:center;padding:10px}
+.quotes{display:grid;gap:8px}
+.quotes p{margin:0;font-size:14.5px;color:var(--muted)}
+.quotes mark{background:var(--ai-soft);color:var(--ai);font-weight:700;padding:1px 4px;border-radius:3px}
+.attrs{padding:20px 24px}
+.attrs-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.attrs-head h3{font-size:17px;font-weight:800}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 14px;font:700 14px var(--font);cursor:pointer;color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.spec{width:100%;border-collapse:collapse;margin-top:12px;font-size:14.5px}
+.spec th{font-size:12.5px;color:var(--faint);font-weight:700;text-align:left;padding:8px 8px;border-bottom:2px solid var(--ink)}
+.spec td{padding:12px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.spec td.k{font-weight:800;text-transform:capitalize;width:22%}
+.v{display:inline-flex;align-items:center;gap:6px;font-weight:700}
+.v::before{content:"";width:16px;height:16px;border-radius:50%;flex:none;background-size:10px 10px;background-repeat:no-repeat;background-position:center}
+.v.ok{color:var(--ok)} .v.ok::before{background-color:var(--ok);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M1.5 5.2 4 7.5 8.5 2.5' fill='none' stroke='%23e0592a' stroke-width='1.8'/%3E%3C/svg%3E")}
+.v.bad{color:var(--bad)} .v.bad::before{background-color:var(--bad);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M2.5 2.5l5 5M7.5 2.5l-5 5' stroke='%23e0592a' stroke-width='1.8'/%3E%3C/svg%3E")}
+.v.none{color:var(--faint);font-weight:500} .v.none::before{border:1.5px dashed var(--faint)}
+.sheet-foot{font-size:13px;color:var(--faint);margin-top:12px}
+/* findings */
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
+.stat{padding:16px 18px;border-left:4px solid var(--ai);background:var(--card)}
+.stat:nth-child(2){border-left-color:var(--ok)} .stat:nth-child(3){border-left-color:var(--bad)}
+.stat b{display:block;font:800 32px/1 var(--font);letter-spacing:-.02em}
+.stat span{display:block;font-size:15px;font-weight:600;margin-top:6px}
+.stat small{display:block;color:var(--muted);font-size:13.5px;margin-top:4px}
+section.block{margin-top:30px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px}
+.card h2{font-size:23px;font-weight:800}
 .sub{color:var(--muted);font-size:15px;margin:6px 0 0;max-width:72ch}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
-.stat b{display:block;font:700 40px/1 var(--display);letter-spacing:-.02em}
-.stat span{display:block;color:var(--muted);font-size:14.5px;margin-top:8px}
-.stat small{display:block;color:var(--faint);font-size:13px;margin-top:6px}
 .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13.5px;color:var(--muted);margin-top:12px}
-.dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
-.table-wrap{overflow-x:auto;margin-top:14px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
 table{width:100%;border-collapse:collapse;font-size:14.5px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:16px}
-.th3{font:600 15px var(--body);letter-spacing:0;margin-bottom:4px}
+.th3{font-size:15px;font-weight:800;margin-bottom:4px}
 td .lab{display:block;font-size:12.5px;color:var(--faint)}
-th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
-th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);font-weight:600}
+.sc th,.sc td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+.sc th{font-size:13px;color:var(--muted);font-weight:700}
 td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-tr.total td{font-weight:600;border-bottom:none}
-.bar{height:8px;border-radius:4px;background:#efece5;position:relative;min-width:70px}
+tr.total td{font-weight:800;border-bottom:none}
+.bar{height:8px;border-radius:4px;background:#edf0f4;position:relative;min-width:70px}
 .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
 .ai{color:var(--ai)} .kw{color:var(--kw)}
 .gate-ctl{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0 4px}
-.seg button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;font:600 14px var(--body);color:var(--muted);cursor:pointer}
-.seg button[aria-pressed="true"]{border-color:var(--ink);color:var(--ink);background:#fff}
-.flow{display:flex;height:46px;border-radius:12px;overflow:hidden;margin-top:14px;border:1px solid var(--line)}
-.flow div{display:flex;align-items:center;justify-content:center;font:600 13.5px var(--body);color:#fff;white-space:nowrap;overflow:hidden;min-width:0;transition:flex-grow .3s}
-.f-auto{background:var(--ok)} .f-review{background:var(--mid)} .f-blank{background:#cfcabe;color:var(--ink)!important}
+.seg button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 14px;font:700 14px var(--font);color:var(--muted);cursor:pointer}
+.seg button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:#fff}
+.flow{display:flex;height:52px;border-radius:8px;overflow:hidden;margin-top:14px}
+.flow div{display:flex;align-items:center;justify-content:center;font:800 15px var(--font);color:#fff;white-space:nowrap;overflow:hidden;min-width:0;transition:flex-grow .3s}
+.f-auto{background:var(--ok)} .f-review{background:var(--mid)} .f-blank{background:#cfd6de;color:var(--ink)!important}
 .gate-out{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
-.gate-out div{border:1px solid var(--line);border-radius:12px;padding:14px}
-.gate-out b{font:700 26px var(--display);display:block}
+.gate-out div{border-top:3px solid var(--line);padding:12px 0 0}
+.gate-out div:nth-child(1){border-top-color:var(--ok)} .gate-out div:nth-child(2){border-top-color:var(--mid)}
+.gate-out b{font:800 26px var(--font);display:block}
 .gate-out span{font-size:14px;color:var(--muted)}
 .filters{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin-top:14px}
-.field{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:600;color:var(--muted)}
-select,input[type=search]{padding:9px 11px;border:1px solid var(--line);border-radius:9px;font:15px var(--body);background:#fff;color:var(--ink);min-width:170px}
+.field{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:700;color:var(--muted)}
+select,input[type=search]{padding:9px 11px;border:1px solid var(--line);border-radius:8px;font:15px var(--font);background:#fff;color:var(--ink);min-width:170px}
 .count{font-size:14px;color:var(--faint);margin-top:12px}
 .items{display:grid;gap:10px;margin-top:10px}
-.item{border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:6px 14px}
-.item h3{font:600 15.5px/1.35 var(--body);letter-spacing:0;text-transform:capitalize}
+.item{border:1px solid var(--line);border-radius:8px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:6px 14px}
+.item h3{font-size:15.5px;font-weight:700;line-height:1.35;text-transform:capitalize;letter-spacing:0}
 .item .cls{font-size:13px;color:var(--faint)}
 .item .vals{display:flex;gap:8px;flex-wrap:wrap;grid-column:1/-1;font-size:14px;align-items:center}
-.pill{border-radius:999px;padding:3px 10px;font-weight:600;font-size:13px;white-space:nowrap}
+.pill{border-radius:6px;padding:3px 10px;font-weight:700;font-size:13px;white-space:nowrap}
 .p-label{background:var(--kw-soft);color:var(--ink)}
-.p-ok{background:var(--ok-soft);color:var(--ok)} .p-bad{background:var(--bad-soft);color:var(--bad)} .p-none{background:#f1efe9;color:var(--faint)}
+.p-ok{background:var(--ok-soft);color:var(--ok)} .p-bad{background:var(--bad-soft);color:var(--bad)} .p-none{background:#eef1f4;color:var(--faint)}
 .ev{grid-column:1/-1;font-size:13.5px;color:var(--muted)}
 .ev q{font-style:italic}
-.attr{font:500 12px var(--mono);color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:6px;align-self:start;white-space:nowrap}
-.more{margin-top:12px;border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 16px;font:600 14.5px var(--body);cursor:pointer}
+.attr{font-size:12px;font-weight:800;color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:4px;align-self:start;white-space:nowrap;text-transform:capitalize}
+.more{margin-top:12px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px 16px;font:700 14.5px var(--font);cursor:pointer}
 .note{font-size:13.5px;color:var(--faint);margin-top:12px}
-footer{margin:44px 0 0;border-top:1px solid var(--line);background:#fff}
-footer .wrap{padding:22px 20px 34px;font-size:13.5px;color:var(--muted);display:grid;gap:6px}
-@media (max-width:760px){.stats,.gate-out,.two{grid-template-columns:1fr}.stat b{font-size:34px}.card{padding:18px}.intro p{font-size:16.5px}.top nav a.hide-sm{display:none}}
-@media (max-width:640px){.sc .bar{display:none}.two>div{min-width:0}}
-@media (max-width:420px){.brand{font-size:16px}.top nav{gap:12px;font-size:13.5px}select,input[type=search]{min-width:0;width:100%}.filters .field{flex:1 1 140px}}
+footer{margin:44px 0 0}
+footer .wrap{padding:22px 20px 34px;font-size:13.5px;color:var(--muted);display:grid;gap:6px;border-top:1px solid var(--line)}
+@media (max-width:860px){.sheet{grid-template-columns:1fr}.prod{border-right:0;border-bottom:1px solid var(--line)}.found{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.found div{border-radius:8px;padding:12px 14px;background:var(--bg)}
+.found div:last-child{background:var(--ok-soft)}
+.found b{display:block;font:800 26px/1.1 var(--font)}
+.found div:last-child b{color:var(--ok)}
+.found span{font-size:13px;color:var(--muted)}
+.prod .img{display:none}}
+@media (max-width:760px){.stats,.gate-out,.two{grid-template-columns:1fr}.card{padding:18px}.intro p{font-size:16.5px}.top nav a.hide-sm{display:none}}
+@media (max-width:640px){.sc .bar{display:none}.two>div{min-width:0}.prod,.attrs{padding:18px 16px}.spec th.kwc,.spec td.kwc{display:none}}
+@media (max-width:460px){.top nav a.hide-xs{display:none}}
+@media (max-width:420px){.brand{font-size:16px}.top nav{gap:12px;font-size:14px}select,input[type=search]{min-width:0;width:100%}.filters .field{flex:1 1 140px}}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="./"><i aria-hidden="true"></i>Attribute Extractor</a>
+    <a class="brand" href="./"><i aria-hidden="true"></i>Catalog Attribute Extractor</a>
     <nav>
-      <a href="https://github.com/costasxeras-stack/catalog-attribute-extractor/blob/main/docs/case-study.md">Case study</a>
+      <a class="hide-xs" href="https://github.com/costasxeras-stack/catalog-attribute-extractor/blob/main/docs/case-study.md">Case study</a>
       <a class="hide-sm" href="https://github.com/costasxeras-stack/catalog-attribute-extractor">GitHub</a>
       <a href="https://kostasxeras.com/">Portfolio</a>
     </nav>
@@ -104,12 +145,25 @@ footer .wrap{padding:22px 20px 34px;font-size:13.5px;color:var(--muted);display:
 
 <main class="wrap">
   <section class="intro">
-    <span class="ver">v0.1.0</span>
     <h1>Can AI fill the shop filters your catalogue is missing?</h1>
     <p>Most products in a large furniture catalogue have no style, color, shape or material value, so they never show up when a shopper uses those filters. An n8n workflow asked Claude to read each product's text and fill the gaps, with a quote as evidence. Here is how often it was right, compared with a simple keyword matcher, on <span id="n-products">259</span> real products whose values were hidden and then checked.</p>
   </section>
 
-  <section class="block stats" id="stats" aria-label="Headline results"></section>
+  <section class="sheet" aria-label="One product at a time">
+    <div class="prod">
+      <div class="crumb" id="p-cls"></div>
+      <h2 id="p-name"></h2>
+      <div class="found" id="p-found"></div>
+      <div class="quotes" id="p-quotes"></div>
+    </div>
+    <div class="attrs">
+      <div class="attrs-head"><h3>Filter values</h3><button class="btn primary" id="p-next">Show another product</button></div>
+      <table class="spec"><thead><tr><th>Filter</th><th>Catalogue</th><th>Claude</th><th class="kwc">Keywords</th></tr></thead><tbody id="p-rows"></tbody></table>
+      <p class="sheet-foot" id="p-foot"></p>
+    </div>
+  </section>
+
+  <section class="stats" id="stats" aria-label="Headline results"></section>
 
   <section class="block card">
     <h2>Scorecard by attribute</h2>
@@ -152,6 +206,7 @@ footer .wrap{padding:22px 20px 34px;font-size:13.5px;color:var(--muted);display:
 
 <footer>
   <div class="wrap">
+    <span>Version 0.2.0</span>
     <span>Built by <a href="https://kostasxeras.com/">Konstantinos Xeras</a>. <a href="https://github.com/costasxeras-stack/catalog-attribute-extractor">Workflow, data and scoring on GitHub</a>.</span>
     <span>Data: WANDS product dataset by Wayfair, MIT licence. Answers: Claude Haiku in an n8n Cloud workflow, run on 20 November 2026.</span>
   </div>
@@ -198,6 +253,35 @@ footer .wrap{padding:22px 20px 34px;font-size:13.5px;color:var(--muted);display:
     $('f-q').addEventListener('input', filter);
     $('more').addEventListener('click', function () { render(30); });
     filter();
+    // Products with two or more scored values, for the product sheet
+    var by = {}; D.rows.forEach(function (r) { (by[r.name] = by[r.name] || []).push(r); });
+    prods = Object.keys(by).filter(function (k) { return by[k].length >= 2 && by[k].some(function (r) { return r.evidence; }); }).map(function (k) { return by[k]; });
+    // Products where Claude filled the most values first
+    var filled = function (rs) { return rs.filter(function (r) { return r.status === 'proposed'; }).length; };
+    prods.sort(function (a, b) { return filled(b) - filled(a) || b.length - a.length; });
+    $('p-next').addEventListener('click', function () { pi = (pi + 1) % prods.length; sheet(); });
+    sheet();
+  }
+  var prods = [], pi = 0;
+  function vcell(v, label) {
+    if (!v) return '<span class="v none">blank</span>';
+    return '<span class="v ' + (v === label ? 'ok' : 'bad') + '">' + esc(v) + '</span>';
+  }
+  function sheet() {
+    var rs = prods[pi], r0 = rs[0];
+    $('p-cls').textContent = r0.cls;
+    $('p-name').textContent = r0.name;
+    var order = ['style', 'color', 'shape', 'material'];
+    rs = rs.slice().sort(function (a, b) { return order.indexOf(a.attr) - order.indexOf(b.attr); });
+    $('p-rows').innerHTML = rs.map(function (r) {
+      var got = r.status === 'proposed' ? r.claude : null;
+      return '<tr><td class="k">' + r.attr + '</td><td>' + esc(r.label) + '</td><td>' + vcell(got, r.label) + '</td><td class="kwc">' + vcell(r.base, r.label) + '</td></tr>';
+    }).join('');
+    var q = rs.filter(function (r) { return r.status === 'proposed' && r.evidence; });
+    $('p-quotes').innerHTML = q.length ? q.map(function (r) { return '<p>Evidence for ' + r.attr + ': <mark>' + esc(r.evidence) + '</mark></p>'; }).join('') : '';
+    var right = rs.filter(function (r) { return r.status === 'proposed' && r.claude === r.label; }).length;
+    $('p-found').innerHTML = '<div><b>0 of ' + rs.length + '</b><span>filters a shopper could find it under before</span></div><div><b>' + right + ' of ' + rs.length + '</b><span>with Claude\'s right values only</span></div>';
+    $('p-foot').textContent = 'Product ' + (pi + 1) + ' of ' + prods.length + ' with two or more checked values, most filled first. The catalogue value was hidden from both methods and used as the reference.';
   }
   function stat(big, text, small) { return '<div class="stat"><b>' + big + '</b><span>' + text + '</span><small>' + small + '</small></div>'; }
   function cell(x, color, title) {
